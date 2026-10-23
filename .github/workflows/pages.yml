@@ -22,7 +22,7 @@ jobs:
       - name: Download verified static release
         run: |
           curl --fail --location --retry 3 --user-agent 'Mozilla/5.0 Chrome/130.0.0.0 Safari/537.36' 'https://shukan-toolkit.delacruzjhon484.chatgpt.site/github-pages-release.zip' -o /tmp/release.zip
-          echo '27d7f30da6e2dbcd269f50adc5df941726a748600d4a926fc346cc7ac95e16f8  /tmp/release.zip' | sha256sum --check
+          echo 'f20db080fd39c858d43009d459f83f2f6e01d40dc1db63b553b9e6e3ac5436da  /tmp/release.zip' | sha256sum --check
           unzip -q /tmp/release.zip -d source
       - name: Sync AIHOT news snapshot
         working-directory: source
@@ -31,7 +31,7 @@ jobs:
       - name: Prepare public files
         run: |
           mkdir _site
-          cp -R source/*.html source/*.css source/*.js source/*.json source/*.jpg source/*.txt source/.nojekyll source/books source/fonts source/logos source/prompt-sources _site/
+          cp -R source/*.html source/*.css source/*.js source/*.json source/*.jpg source/*.txt source/.nojekyll source/books source/fonts source/logos source/prompt-sources source/case-images _site/
       - uses: actions/upload-pages-artifact@v4
         with:
           path: _site
