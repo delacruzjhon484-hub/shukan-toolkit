@@ -1,0 +1,40 @@
+name: Publish Shukan Pages
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+  schedule:
+    - cron: '15 1 * * *'
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+concurrency:
+  group: pages
+  cancel-in-progress: false
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Download verified static release
+        run: |
+          curl --fail --location --retry 3 --user-agent 'Mozilla/5.0 Chrome/130.0.0.0 Safari/537.36' 'https://shukan-toolkit.delacruzjhon484.chatgpt.site/github-pages-release.zip' -o /tmp/release.zip
+          echo '27d7f30da6e2dbcd269f50adc5df941726a748600d4a926fc346cc7ac95e16f8  /tmp/release.zip' | sha256sum --check
+          unzip -q /tmp/release.zip -d source
+      - name: Sync AIHOT news snapshot
+        working-directory: source
+        run: python3 scripts/sync-news.py
+      - uses: actions/configure-pages@v5
+      - name: Prepare public files
+        run: |
+          mkdir _site
+          cp -R source/*.html source/*.css source/*.js source/*.json source/*.jpg source/*.txt source/.nojekyll source/books source/fonts source/logos source/prompt-sources _site/
+      - uses: actions/upload-pages-artifact@v4
+        with:
+          path: _site
+      - name: Deploy
+        id: deployment
+        uses: actions/deploy-pages@v4
