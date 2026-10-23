@@ -22,7 +22,7 @@ jobs:
       - name: Download verified static release
         run: |
           curl --fail --location --retry 3 --user-agent 'Mozilla/5.0 Chrome/130.0.0.0 Safari/537.36' 'https://shukan-toolkit.delacruzjhon484.chatgpt.site/github-pages-release.zip' -o /tmp/release.zip
-          echo 'f20db080fd39c858d43009d459f83f2f6e01d40dc1db63b553b9e6e3ac5436da  /tmp/release.zip' | sha256sum --check
+          echo 'ff16edfa66f664e22aa9d437a28704b40b96d109a2eadc95c1b9e5ee5524b714  /tmp/release.zip' | sha256sum --check
           unzip -q /tmp/release.zip -d source
       - name: Sync AIHOT news snapshot
         working-directory: source
