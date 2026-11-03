@@ -1,4 +1,4 @@
-name: Publish Shukan Pages
+name: Publish Banzhi AI Tools Pages
 on:
   push:
     branches: [main]
@@ -21,17 +21,17 @@ jobs:
     steps:
       - name: Download verified static release
         run: |
-          curl --fail --location --retry 3 --user-agent 'Mozilla/5.0 Chrome/130.0.0.0 Safari/537.36' 'https://shukan-toolkit.delacruzjhon484.chatgpt.site/github-pages-release.zip' -o /tmp/release.zip
-          echo 'ff16edfa66f664e22aa9d437a28704b40b96d109a2eadc95c1b9e5ee5524b714  /tmp/release.zip' | sha256sum --check
+          curl --fail --location --retry 3 --user-agent 'Mozilla/5.0 Chrome/130.0.0.0 Safari/537.36' 'https://shukan-toolkit.delacruzjhon484.chatgpt.site/banzhi-pages-v38.zip' -o /tmp/release.zip
+          echo '63cca9742fd05166b3c45bbc4eaf1a882bc2ba3e01d1bc7e7a32d72a5e4fb19e  /tmp/release.zip' | sha256sum --check
           unzip -q /tmp/release.zip -d source
-      - name: Sync AIHOT news snapshot
+      - name: Sync public index snapshots
         working-directory: source
         run: python3 scripts/sync-news.py
       - uses: actions/configure-pages@v5
       - name: Prepare public files
         run: |
           mkdir _site
-          cp -R source/*.html source/*.css source/*.js source/*.json source/*.jpg source/*.txt source/.nojekyll source/books source/fonts source/logos source/prompt-sources source/case-images _site/
+          cp -R source/. _site/
       - uses: actions/upload-pages-artifact@v4
         with:
           path: _site
