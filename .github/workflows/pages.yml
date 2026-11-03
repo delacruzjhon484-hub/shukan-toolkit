@@ -21,8 +21,8 @@ jobs:
     steps:
       - name: Download verified static release
         run: |
-          curl --fail --location --retry 3 --user-agent 'Mozilla/5.0 Chrome/130.0.0.0 Safari/537.36' 'https://shukan-toolkit.delacruzjhon484.chatgpt.site/banzhi-pages-v38.zip' -o /tmp/release.zip
-          echo '63cca9742fd05166b3c45bbc4eaf1a882bc2ba3e01d1bc7e7a32d72a5e4fb19e  /tmp/release.zip' | sha256sum --check
+          curl --fail --location --retry 3 --user-agent 'Mozilla/5.0 Chrome/130.0.0.0 Safari/537.36' 'https://shukan-toolkit.delacruzjhon484.chatgpt.site/banzhi-pages-journals-20261104.zip' -o /tmp/release.zip
+          echo 'edfdb610ddc0a9e276732da5dabcf50aa1f45bbcf606bc52334dd5989d2271a0  /tmp/release.zip' | sha256sum --check
           unzip -q /tmp/release.zip -d source
       - name: Sync public index snapshots
         working-directory: source
